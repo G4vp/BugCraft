@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3 uid="uid://bx6pjf1rqcyhm"]
+
+[ext_resource type="PackedScene" uid="uid://dwee1cjuko7cc" path="res://Scenes/player.tscn" id="1_xv4kn"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_1aeie"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gnrql"]
+albedo_color = Color(1, 0.580392, 1, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_24mvu"]
+material = SubResource("StandardMaterial3D_gnrql")
+
+[node name="Node3D" type="Node3D"]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -0.939364, 0.342922, 0, -0.342922, -0.939364, 0, 28.8728, -42.5083)
+shadow_enabled = true
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+transform = Transform3D(47.3027, -0.000415765, -0.0721615, 0.0314262, 0.623328, -0.243522, 0.0418361, 0.00185589, 81.7743, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("BoxShape3D_1aeie")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("BoxMesh_24mvu")
+skeleton = NodePath("../CollisionShape3D")
+
+[node name="Player" parent="." instance=ExtResource("1_xv4kn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.76674, 0)
