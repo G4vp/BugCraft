@@ -3,7 +3,7 @@ extends CharacterBody3D
 
 const SPEED = 5.0
 const JUMP_VELOCITY = 4.5
-const LOOKAROUND_SPEED = 0.02
+const LOOKAROUND_SPEED = 0.01
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
@@ -11,17 +11,35 @@ var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 var rot_x = 0
 var rot_y = 0
 
+func _ready():
+	Input.mouse_mode = Input.MOUSE_MODE_CONFINED_HIDDEN
+	
 func _physics_process(delta):
 	player_movement(delta)
 	
 	move_and_slide()
+
+func _input(event):
+	if event is InputEventMouseMotion:
+		player_camera(event)
+		
+func player_camera(event):
+	# modify accumulated mouse rotation
+	rot_x -= event.relative.x * LOOKAROUND_SPEED
+	rot_y -= event.relative.y * LOOKAROUND_SPEED
+	
+	rot_y = clampf(rot_y, -PI/3, PI/3)
+	
+	transform.basis = Basis() # reset rotation
+	rotate_object_local(Vector3(0, 1, 0), rot_x) # first rotate in Y
+	rotate_object_local(Vector3(1, 0, 0), rot_y) # then rotate in X
 
 func player_movement(delta):
 		# Add the gravity.
 	if not is_on_floor():
 		velocity.y -= gravity * delta
 	# Handle Jump.
-	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
+	if Input.is_action_just_pressed("key_jump") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
 
 	# Get the input direction and handle the movement/deceleration.
@@ -35,14 +53,3 @@ func player_movement(delta):
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 		velocity.z = move_toward(velocity.z, 0, SPEED)
 
-func _input(event):
-	if event is InputEventMouseMotion:
-		# modify accumulated mouse rotation
-		rot_x += event.relative.x * LOOKAROUND_SPEED
-		rot_y -= event.relative.y * LOOKAROUND_SPEED
-		
-		rot_y = clampf(rot_y, -PI/3, PI/3)
-		
-		transform.basis = Basis() # reset rotation
-		rotate_object_local(Vector3(0, 1, 0), rot_x) # first rotate in Y
-		rotate_object_local(Vector3(1, 0, 0), rot_y) # then rotate in X
