@@ -10,5 +10,6 @@ func _ready():
 func _process(delta):
 	pass
 
-func place_cube(pos_x, pos_y, pos_z):
-	position = Vector3(pos_x,pos_y,pos_z)	
+func place_cube(marker):
+	position = marker.global_position
+	

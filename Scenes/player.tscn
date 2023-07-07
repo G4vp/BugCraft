@@ -1,15 +1,16 @@
-[gd_scene load_steps=5 format=3 uid="uid://dwee1cjuko7cc"]
+[gd_scene load_steps=6 format=3 uid="uid://dwee1cjuko7cc"]
 
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_32akl"]
+[ext_resource type="Texture2D" uid="uid://c764jxyrv58vr" path="res://Assets/crosshair.png" id="2_3jdjn"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_qgvyp"]
 size = Vector3(1, 1.765, 1)
 
-[sub_resource type="BoxMesh" id="BoxMesh_b38ss"]
-size = Vector3(1, 1.765, 1)
-
 [sub_resource type="BoxMesh" id="BoxMesh_uyyg3"]
 size = Vector3(0.254, 0.241, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_b38ss"]
+size = Vector3(1, 1.765, 1)
 
 [node name="Player" type="CharacterBody3D"]
 script = ExtResource("1_32akl")
@@ -17,13 +18,22 @@ script = ExtResource("1_32akl")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("BoxShape3D_qgvyp")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-mesh = SubResource("BoxMesh_b38ss")
-skeleton = NodePath("../CollisionShape3D")
-
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.569085, 0)
 
-[node name="Hand" type="MeshInstance3D" parent="."]
+[node name="Marker3D" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.526024, -2.77001)
+
+[node name="Sprite3D" type="Sprite3D" parent="Marker3D"]
+texture = ExtResource("2_3jdjn")
+
+[node name="Body" type="Node3D" parent="."]
+
+[node name="Hand" type="MeshInstance3D" parent="Body"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.665851, 0.13058, -0.451153)
 mesh = SubResource("BoxMesh_uyyg3")
+skeleton = NodePath("../..")
+
+[node name="Core" type="MeshInstance3D" parent="Body"]
+mesh = SubResource("BoxMesh_b38ss")
+skeleton = NodePath("../../CollisionShape3D")

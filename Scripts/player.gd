@@ -11,8 +11,10 @@ var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 var rot_x = 0
 var rot_y = 0
 
+var marker
+
 func _ready():
-	
+	marker = get_node("Marker3D")
 	Input.mouse_mode = Input.MOUSE_MODE_CONFINED_HIDDEN
 	
 func _physics_process(delta):
@@ -28,8 +30,9 @@ func _input(event):
 func action_place_block():	
 # Do Something
 	var cube = preload("res://Scenes/cube.tscn").instantiate()
-	cube.place_cube(self.position.x,self.position.y,self.position.z - 10)
-	add_child(cube)
+	cube.place_cube(marker)
+	
+	get_parent().add_child(cube)
 	
 	
 func player_camera(event):
@@ -37,7 +40,7 @@ func player_camera(event):
 	rot_x -= event.relative.x * LOOKAROUND_SPEED
 	rot_y -= event.relative.y * LOOKAROUND_SPEED
 	
-	rot_y = clampf(rot_y, -PI/3, PI/3)
+	rot_y = clampf(rot_y, -PI/2, PI/2)
 	
 	transform.basis = Basis() # reset rotation
 	rotate_object_local(Vector3(0, 1, 0), rot_x) # first rotate in Y
