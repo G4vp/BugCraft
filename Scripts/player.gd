@@ -1,6 +1,5 @@
 extends CharacterBody3D
 
-
 const SPEED = 5.0
 const JUMP_VELOCITY = 5.0
 const LOOKAROUND_SPEED = 0.01
@@ -8,13 +7,15 @@ const LOOKAROUND_SPEED = 0.01
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 # Player rotation axes
-var rot_x = 0
-var rot_y = 0
+var rot_x: float = 0
+var rot_y: float = 0
 
-var marker
+var marker : Marker3D
+var raycast : RayCast3D
 
 func _ready():
 	marker = get_node("Camera3D/Marker3D")
+	raycast = get_node("Camera3D/RayCast3D")
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	
 func _physics_process(delta):
@@ -24,16 +25,21 @@ func _physics_process(delta):
 func _input(event):
 	if event is InputEventMouseMotion:
 		player_camera(event)
-	if event is InputEventMouseButton:
+	if event is InputEventMouseButton && event.button_mask == 1:
+		action_destroy_block()
+	if event is InputEventMouseButton && event.button_mask == 2:
 		action_place_block()
 
 func action_place_block():	
 # Do Something
 	var cube = preload("res://Scenes/cube.tscn").instantiate()
 	cube.place_cube(marker)
-	
 	get_parent().add_child(cube)
 	
+func action_destroy_block():
+	var node_hit = raycast.get_collider()
+	if(node_hit != null && node_hit.has_method("destroy_cube")):
+		node_hit.destroy_cube()
 	
 func player_camera(event):
 	# modify accumulated mouse rotation

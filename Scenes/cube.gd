@@ -15,4 +15,5 @@ func place_cube(marker):
 	position = Vector3(int(new_pos.x),int(new_pos.y),int(new_pos.z))
 	print(position)
 	
-	
+func destroy_cube():
+	self.queue_free()

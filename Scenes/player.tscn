@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://c764jxyrv58vr" path="res://Assets/crosshair.png" id="2_3jdjn"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_qgvyp"]
-size = Vector3(1, 1.765, 1)
+size = Vector3(1, 1.5, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_uyyg3"]
 size = Vector3(0.254, 0.241, 1)
@@ -27,6 +27,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0285631, -2.77)
 [node name="Sprite3D" type="Sprite3D" parent="Camera3D"]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, -0.0285631, -0.985309)
 texture = ExtResource("2_3jdjn")
+
+[node name="RayCast3D" type="RayCast3D" parent="Camera3D"]
+transform = Transform3D(2.44, 0, 0, 0, -1.06656e-07, -2.44, 0, 2.44, -1.06656e-07, 0, 0.000100732, -0.491744)
 
 [node name="Body" type="Node3D" parent="."]
 
