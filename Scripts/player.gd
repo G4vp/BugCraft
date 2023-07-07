@@ -2,7 +2,7 @@ extends CharacterBody3D
 
 
 const SPEED = 5.0
-const JUMP_VELOCITY = 4.5
+const JUMP_VELOCITY = 5.0
 const LOOKAROUND_SPEED = 0.01
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.

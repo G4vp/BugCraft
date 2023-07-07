@@ -11,5 +11,8 @@ func _process(delta):
 	pass
 
 func place_cube(marker):
-	position = marker.global_position
+	var new_pos = marker.global_position
+	position = Vector3(int(new_pos.x),int(new_pos.y),int(new_pos.z))
+	print(position)
+	
 	
