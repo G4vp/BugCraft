@@ -14,7 +14,7 @@ var rot_y = 0
 var marker
 
 func _ready():
-	marker = get_node("Marker3D")
+	marker = get_node("Camera3D/Marker3D")
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	
 func _physics_process(delta):
