@@ -12,17 +12,26 @@ var rot_x = 0
 var rot_y = 0
 
 func _ready():
+	
 	Input.mouse_mode = Input.MOUSE_MODE_CONFINED_HIDDEN
 	
 func _physics_process(delta):
 	player_movement(delta)
-	
 	move_and_slide()
 
 func _input(event):
 	if event is InputEventMouseMotion:
 		player_camera(event)
-		
+	if event is InputEventMouseButton:
+		action_place_block()
+
+func action_place_block():	
+# Do Something
+	var cube = preload("res://Scenes/cube.tscn").instantiate()
+	cube.place_cube(self.position.x,self.position.y,self.position.z - 10)
+	add_child(cube)
+	
+	
 func player_camera(event):
 	# modify accumulated mouse rotation
 	rot_x -= event.relative.x * LOOKAROUND_SPEED
