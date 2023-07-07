@@ -15,7 +15,7 @@ var marker
 
 func _ready():
 	marker = get_node("Marker3D")
-	Input.mouse_mode = Input.MOUSE_MODE_CONFINED_HIDDEN
+	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	
 func _physics_process(delta):
 	player_movement(delta)
@@ -47,7 +47,7 @@ func player_camera(event):
 	rotate_object_local(Vector3(1, 0, 0), rot_y) # then rotate in X
 
 func player_movement(delta):
-		# Add the gravity.
+	# Add the gravity.
 	if not is_on_floor():
 		velocity.y -= gravity * delta
 	# Handle Jump.

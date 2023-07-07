@@ -22,9 +22,10 @@ shape = SubResource("BoxShape3D_qgvyp")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.569085, 0)
 
 [node name="Marker3D" type="Marker3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.526024, -2.77001)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.540522, -2.77)
 
 [node name="Sprite3D" type="Sprite3D" parent="Marker3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.78469)
 texture = ExtResource("2_3jdjn")
 
 [node name="Body" type="Node3D" parent="."]
